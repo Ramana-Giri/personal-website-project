@@ -1,103 +1,687 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ramana Giri</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-</head>
-<body>
-    <!-- Introduction page -->
-    <div class=" mainPage container col-xxl-8 px-4 py-5">
-        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-          <div class="col-10 col-sm-8 col-lg-6">
-            <img src="mainImage.jpeg" class="d-block mx-lg-auto img-fluid rounded" alt="Ramana Giri" width="700" height="500" loading="lazy">
-          </div>
-          <div class="col-lg-6">
-            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">I'm Ramana Giri</h1>
-            <p class="lead fs-5">a Web Developer</p>
-          </div>
-        </div>
-      </div>
-    <!-- about section -->
-    <div class="about bg-dark">
-      <div class="container my-5">
-        <div class="p-5 text-center  ">
-          <!-- <svg class="bi mt-4 mb-3" style="color: var(--bs-indigo);" width="100" height="100"><use link:href=" mainImage.jpeg"></use></svg> -->
-          <img class="bi my-5 profilePic" style="color: var(--bs-indigo);"  src="profilePic.jpg" alt="ramana giri" width="150" height="150">
-          <h1 class=" text-white mb-4">Ramana Giri</h1>
-          <p class="col-lg-8 mx-auto fs-5 text-white">
-            I'm an aspiring Web Developer and a student.
-          </p>
-        </div>
-      </div>
-    </div>
-    <!-- skills -->
-    <div class="Skills container my-5">
-      <div class="row">
-        <h1 class="text-center my-5">Skills</h1>
-      </div>
-      <div class="row">
-        <div class="col-lg-4 mb-5 d-flex flex-column align-items-center">
-          <img src="html.png" alt="html" class=" p-3 bd-placeholder-img rounded-circle" width="140" height="140">
-          <h2 class="fw-normal">Html</h2>
-          
-        </div><!-- /.col-lg-4 -->
-        <div class="col-lg-4 mb-5 d-flex flex-column align-items-center  ">
-          <img src="css-3.png" alt="html" class=" p-3 bd-placeholder-img rounded-circle" width="140" height="140">
-          <h2 class="fw-normal">CSS</h2>
-          
-        </div><!-- /.col-lg-4 -->
-        <div class="col-lg-4 mb-5 d-flex flex-column align-items-center">
-          <img src="bootstrap.png" alt="html" class=" p-3 bd-placeholder-img rounded-circle" width="140" height="140">
-          <h2 class="fw-normal">Bootstrap</h2>
-          
-        </div><!-- /.col-lg-4 -->
-      </div>
-    </div>
+    <title>Ramana Giri - Java Backend Developer</title>
 
-    
-    <!-- Contact -->
-    <div class="Contact p-5 text-center bg-dark">
-      <div class="container py-5">
-        <h1 class="text-white my-4 ">Get In Touch</h1>
-        <p class="col-lg-8 mx-auto text-white fs-5">
-          If you are interesented in learning Web development like me and if you want a accountability partner you can connect wtih me
-        </p>
-        <div class="d-inline-flex gap-2 my-3">
-          <button class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" type="button">
-            Connect
-          </button>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Load Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        indigo: {
+                            600: '#4F46E5',
+                            700: '#4338CA',
+                        },
+                        // ADDED YOUR PALE YELLOW COLOR
+                        'pale-yellow': '#ffffc5',
+                    }
+                },
+            },
+        }
+    </script>
+
+    <!--
+      --- THEME LOADER SCRIPT ---
+      This runs *before* the page loads to prevent a "flash" of the wrong theme.
+    -->
+    <script>
+        (function() {
+            function applyTheme(theme) {
+                if (theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            }
+            const savedTheme = localStorage.getItem('theme') || 'auto';
+            applyTheme(savedTheme);
+        })();
+    </script>
+
+    <style>
+        /* Light scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        /* UPDATED SCROLLBAR TRACK */
+        ::-webkit-scrollbar-track {
+            background: #fefee0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4F46E5;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4338CA;
+        }
+
+        /* Dark scrollbar */
+        .dark::-webkit-scrollbar-track {
+            background: #1f2937; /* dark:bg-gray-800 */
+        }
+        .dark::-webkit-scrollbar-thumb {
+            background: #6366f1; /* dark:bg-indigo-500 */
+        }
+        .dark::-webkit-scrollbar-thumb:hover {
+            background: #4f46e5; /* dark:bg-indigo-600 */
+        }
+
+        /* --- GRADUAL THEME TRANSITION --- */
+        /* This applies a smooth 300ms transition to all color changes */
+        *, *::before, *::after {
+            transition-property: background-color, border-color, color;
+            transition-duration: 300ms;
+            transition-timing-function: ease-in-out;
+        }
+
+        /* Active nav link styling */
+        .nav-link.active {
+            color: #4F46E5; /* Indigo-600 */
+            font-weight: 600;
+        }
+        .dark .nav-link.active {
+            color: #818cf8; /* dark:text-indigo-400 */
+        }
+        .mobile-nav-link.active {
+            color: #4F46E5;
+            font-weight: 600;
+        }
+        .dark .mobile-nav-link.active {
+            color: #818cf8;
+        }
+
+        /* Style for the scroll-in animation */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Back to Top button visibility */
+        #back-to-top {
+            opacity: 0;
+            transform: scale(0.9) translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        #back-to-top.is-visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    </style>
+</head>
+
+<!-- UPDATED BODY BACKGROUND -->
+<body class="bg-pale-white text-gray-800 dark:bg-gray-900 dark:text-gray-200 antialiased">
+
+<!--
+  =================================
+  HEADER & NAVIGATION
+  =================================
+-->
+<!-- UPDATED HEADER BACKGROUND -->
+<header class="sticky top-0 z-50 bg-pale-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700">
+    <nav class="container mx-auto max-w-5xl px-6 py-4 flex justify-between items-center">
+        <!-- Your Name/Logo (links to home) -->
+        <a href="#home" class="text-xl font-bold text-gray-900 dark:text-white">
+            Ramana Giri
+        </a>
+
+        <div class="flex items-center">
+            <!-- Navigation Links (Desktop) -->
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="nav-link text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">About</a>
+                <a href="#education" class="nav-link text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">Education</a>
+                <a href="#experience" class="nav-link text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">Experience</a>
+                <a href="#skills" class="nav-link text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">Skills</a>
+                <a href="#projects" class="nav-link text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">Projects</a>
+                <a href="#contact" class="nav-link text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">Contact</a>
+            </div>
+
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="ml-6 p-2 rounded-full text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-gray-800">
+                <!-- Inlined SVG for Sun -->
+                <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 hidden"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+                <!-- Inlined SVG for Moon -->
+                <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 hidden"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+                <!-- Removed System Icon -->
+                <span class="sr-only">Toggle theme</span>
+            </button>
+
+            <!-- MOBILE MENU BUTTON -->
+            <button id="mobile-menu-button" class="ml-4 md:hidden p-2 rounded-full text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-gray-800">
+                <!-- Inlined SVG for Menu -->
+                <svg id="mobile-menu-icon-open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+                <!-- Inlined SVG for X (Close) -->
+                <svg id="mobile-menu-icon-close" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 hidden"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+                <span class="sr-only">Toggle menu</span>
+            </button>
         </div>
-      </div>
+    </nav>
+
+    <!-- MOBILE MENU PANEL -->
+    <!-- UPDATED MOBILE MENU BACKGROUND -->
+    <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-pale-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg border-t border-gray-200 dark:border-gray-700">
+        <div class="flex flex-col space-y-4 p-6">
+            <a href="#about" class="mobile-nav-link text-lg text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">About</a>
+            <a href="#education" class="mobile-nav-link text-lg text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">Education</a>
+            <a href="#experience" class="mobile-nav-link text-lg text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">Experience</a>
+            <a href="#skills" class="mobile-nav-link text-lg text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">Skills</a>
+            <a href="#projects" class="mobile-nav-link text-lg text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">Projects</a>
+            <a href="#contact" class="mobile-nav-link text-lg text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-4G00">Contact</a>
+        </div>
     </div>
-    <!-- Footer -->
-    <div class="footer">
-      <div class="container">
-        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-4 border-top">
-          <div class="col-md-4 d-flex align-items-center">
-            <span class="mb-3 mb-md-0 text-muted">© Ramana Giri</span>
-          </div>
-          <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li class="ms-3">
-              <a class="text-white" href="">
-                <img src=" linkedin.svg" alt="linkedin" class="bi" width="24" height="24">
-              </a>
-            </li>
-            <li class="ms-3">
-              <a class="text-white" href="">
-                <img src=" youtube.svg" alt="instagram" class="bi" width="24" height="24">
-              </a>
-            </li>
-            <li class="ms-3">
-              <a class="text-white" href="">
-                <img src=" instagram.svg" alt="youtube" class="bi" width="24" height="24">
-              </a>
-            </li>
-            </ul>
-        </footer>
-      </div>
+</header>
+
+<!-- Main Content Area -->
+<main class="container mx-auto max-w-5xl px-6">
+
+    <!--
+      =================================
+      HERO SECTION
+      =================================
+    -->
+    <section id="home" class="py-20 md:py-32 flex flex-col md:flex-row items-center reveal-on-scroll">
+
+        <!-- Text Content -->
+        <div class="md:w-3/5 text-center md:text-left">
+            <span class="text-indigo-600 dark:text-indigo-400 font-semibold text-lg">Hello, I'm Ramana Giri</span>
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mt-2 mb-6 leading-tight">
+                Java Backend Developer
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-lg mx-auto md:mx-0">
+                I build clean, modern, and efficient backend systems, turning complex problems into scalable solutions.
+            </p>
+
+            <!-- Buttons -->
+            <div class="flex justify-center md:justify-start items-center gap-4">
+                <a href="https://raw.githubusercontent.com/Ramana-Giri/Ramana-Giri-Resume/main/Ramana%20Giri%20Resume.pdf" target="_blank"
+                   class="bg-indigo-600 text-white font-medium py-3 px-6 rounded-lg hover:bg-indigo-700 shadow-lg shadow-indigo-500/30 transform hover:scale-105 transition-all duration-300">
+                    Download Resume
+                </a>
+                <!-- Social Links -->
+                <div class="flex space-x-4">
+                    <a href="https://github.com/Ramana-Giri/" target="_blank" rel="noopener noreferrer" class="text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400" title="GitHub">
+                        <span class="sr-only">GitHub</span>
+                        <!-- Inlined SVG for GitHub -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/ramana-giri-792650227/" target="_blank" rel="noopener noreferrer" class="text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400" title="LinkedIn">
+                        <span class="sr-only">LinkedIn</span>
+                        <!-- Inlined SVG for LinkedIn -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image -->
+        <div class="md:w-2/5 mt-12 md:mt-0 flex justify-center">
+            <!-- Correct LinkedIn profile image -->
+            <img src="static/Ramanagiri_image.jpg" alt="Ramana Giri" class="rounded-full w-64 h-64 md:w-80 md:h-80 object-cover shadow-xl">
+        </div>
+    </section>
+
+    <!--
+      =================================
+      ABOUT SECTION
+      =================================
+    -->
+    <section id="about" class="py-20 lg:py-32 reveal-on-scroll">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-6">About Me</h2>
+            <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                Hello! I'm Ramana, a B.E. Computer Science student at Panimalar Engineering College with a strong passion for building robust and scalable backend systems.
+            </p>
+            <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mt-4">
+                My focus is on the Java and Spring Boot ecosystem, and I thrive on turning complex problems into clean, efficient, and maintainable code. I'm driven by a desire to learn and contribute to meaningful projects.
+            </p>
+        </div>
+    </section>
+
+    <!--
+      =================================
+      EDUCATION SECTION
+      =================================
+    -->
+    <section id="education" class="py-20 lg:py-32 bg-gray-50/70 dark:bg-gray-800/70 reveal-on-scroll">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-10">Education</h2>
+            <div class="bg-white dark:bg-gray-800 p-10 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700 block mx-auto max-w-xl">
+                <!-- REMOVED College Logo -->
+
+                <h3 class="text-xl lg:text-2xl font-semibold text-indigo-600 dark:text-indigo-400">B.E. Computer Science & Engineering</h3>
+                <p class="text-lg text-gray-700 dark:text-gray-300 mt-2">Panimalar Engineering College Chennai City Campus</p>
+                <p class="text-md text-gray-500 dark:text-gray-400 mt-1">2022 – 2026</p>
+                <p class="text-lg text-gray-700 dark:text-gray-300 mt-4 font-medium">CGPA: 8.5</p>
+            </div>
+        </div>
+    </section>
+
+    <!--
+      =================================
+      EXPERIENCE SECTION
+      =================================
+    -->
+    <section id="experience" class="py-20 lg:py-32 reveal-on-scroll">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-10">Experience</h2>
+            <div class="bg-white dark:bg-gray-800 p-10 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700 block mx-auto max-w-xl text-left">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="text-xl lg:text-2xl font-semibold text-indigo-600 dark:text-indigo-400">Java Developer Intern</h3>
+                        <p class="text-lg text-gray-700 dark:text-gray-300 mt-2">Robowaves</p>
+                    </div>
+                    <!-- You can update this date when you know it -->
+                    <span class="text-md text-gray-500 dark:text-gray-400 mt-1">Jun 2025 to Aug 2025</span>
+                </div>
+                <ul class="list-disc list-outside text-gray-600 dark:text-gray-400 mt-6 ml-5 space-y-2">
+                    <li>Engineered a full-stack recruitment platform using a Spring Boot and MySQL backend.</li>
+                    <li>Delivered key features including job posting, candidate registration, and application tracking, directly improving the recruitment workflow.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <!--
+      =================================
+      SKILLS SECTION
+      =================================
+    -->
+    <section id="skills" class="py-20 lg:py-32 bg-gray-50/70 dark:bg-gray-800/70 reveal-on-scroll">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-12">My Tech Stack</h2>
+            <div class="flex flex-wrap justify-center gap-4">
+                    <span class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-lg font-medium px-5 py-3 rounded-lg shadow-md border border-gray-100 dark:border-gray-700 flex items-center justify-center gap-2 transform hover:scale-105 transition-transform duration-300">
+                        <!-- Inlined SVG for code-2 -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-indigo-600"><path d="m18 16 4-4-4-4"></path><path d="m6 8-4 4 4 4"></path><path d="m14.5 4-5 16"></path></svg>
+                        <span>Java</span>
+                    </span>
+                <span class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-lg font-medium px-5 py-3 rounded-lg shadow-md border border-gray-100 dark:border-gray-700 flex items-center justify-center gap-2 transform hover:scale-105 transition-transform duration-300">
+                        <!-- Inlined SVG for leaf -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-green-600"><path d="M11 20A7 7 0 0 1 4 13q0-4.5 4.5-5A7 7 0 0 1 20 13a7 7 0 0 1-7 7l-1.1-1.1"></path><path d="M13 8c0-2.7.5-5.3 2-7L13 3c-1.5 1.7-2 4.3-2 7"></path></svg>
+                        <span>Spring Boot</span>
+                    </span>
+                <span class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-lg font-medium px-5 py-3 rounded-lg shadow-md border border-gray-100 dark:border-gray-700 flex items-center justify-center gap-2 transform hover:scale-105 transition-transform duration-300">
+                        <!-- Inlined SVG for lock -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-yellow-600"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        <span>Spring Security</span>
+                    </span>
+                <span class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-lg font-medium px-5 py-3 rounded-lg shadow-md border border-gray-100 dark:border-gray-700 flex items-center justify-center gap-2 transform hover:scale-105 transition-transform duration-300">
+                        <!-- Inlined SVG for database (1) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-blue-600"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14a9 3 0 0 0 18 0V5"></path><path d="M3 12a9 3 0 0 0 18 0"></path></svg>
+                        <span>Spring Data JPA</span>
+                    </span>
+                <span class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-lg font-medium px-5 py-3 rounded-lg shadow-md border border-gray-100 dark:border-gray-700 flex items-center justify-center gap-2 transform hover:scale-105 transition-transform duration-300">
+                        <!-- Inlined SVG for database (2) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-blue-700"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14a9 3 0 0 0 18 0V5"></path><path d="M3 12a9 3 0 0 0 18 0"></path></svg>
+                        <span>MySQL</span>
+                    </span>
+                <span class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-lg font-medium px-5 py-3 rounded-lg shadow-md border border-gray-100 dark:border-gray-700 flex items-center justify-center gap-2 transform hover:scale-105 transition-transform duration-300">
+                        <!-- Inlined SVG for git-branch -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-red-600"><line x1="6" x2="6" y1="3" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg>
+                        <span>Git</span>
+                    </span>
+                <span class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-lg font-medium px-5 py-3 rounded-lg shadow-md border border-gray-100 dark:border-gray-700 flex items-center justify-center gap-2 transform hover:scale-105 transition-transform duration-300">
+                        <!-- Inlined SVG for braces -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-yellow-500"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5a2 2 0 0 0 2 2h1"></path><path d="M16 21h1a2 2 0 0 0 2-2v-5a2 2 0 0 1 2-2 2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"></path></svg>
+                        <span>JavaScript</span>
+                    </span>
+                <span class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-lg font-medium px-5 py-3 rounded-lg shadow-md border border-gray-100 dark:border-gray-700 flex items-center justify-center gap-2 transform hover:scale-105 transition-transform duration-300">
+                        <!-- Inlined SVG for file-code -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-600"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="m10 13-2 2 2 2"></path><path d="m14 17 2-2-2-2"></path></svg>
+                        <span>HTML5</span>
+                    </span>
+                <span class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-lg font-medium px-5 py-3 rounded-lg shadow-md border border-gray-100 dark:border-gray-700 flex items-center justify-center gap-2 transform hover:scale-105 transition-transform duration-300">
+                        <!-- Inlined SVG for palette -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-blue-500"><circle cx="13.5" cy="6.5" r=".5"></circle><circle cx="17.5" cy="10.5" r=".5"></circle><circle cx="8.5" cy="7.5" r=".5"></circle><circle cx="6.5" cy="12.5" r=".5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125s.148-.836.437-1.125c.29-.289.438-.652.438-1.125s-.148-.836-.437-1.125c-.29-.289-.438-.652-.438-1.125s.148-.836.437-1.125c.29-.289.438-.652.438-1.125C13.648 2.746 12.926 2 12 2z"></path></svg>
+                        <span>CSS3</span>
+                    </span>
+            </div>
+        </div>
+    </section>
+
+    <!--
+      =================================
+      PROJECTS SECTION
+      =================================
+    -->
+    <section id="projects" class="py-20 lg:py-32 reveal-on-scroll overflow-hidden">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-12">Featured Projects</h2>
+
+            <!-- Project Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 text-left">
+
+                <!-- Project Card 1: Covey's Matrix -->
+                <!-- FIXED HOVER: Removed scale, added border hover -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:border-indigo-300 dark:hover:border-indigo-600 w-full">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Covey's Matrix Task Manager (Backend)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                            Developed the backend for a "Covey's Matrix" task manager, enabling users to prioritize tasks based on urgency and importance.
+                        </p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                            Engineered the API using Spring Boot, Spring Security (for user authentication), and Spring Data JPA (for all CRUD operations).
+                        </p>
+
+                        <!-- Tech Tags -->
+                        <div class="mb-4 flex flex-wrap gap-2">
+                            <span class="inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full px-3 py-1 text-xs font-semibold">Spring Boot</span>
+                            <span class="inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full px-3 py-1 text-xs font-semibold">Spring Security</span>
+                            <span class="inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full px-3 py-1 text-xs font-semibold">JPA</span>
+                            <span class="inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full px-3 py-1 text-xs font-semibold">H2</span>
+                        </div>
+
+                        <!-- Links -->
+                        <div>
+                            <a href="https://github.com/Ramana-Giri/Covey-s-Matrix-Application/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-700 dark:hover:text-indigo-300 group">
+                                View Code
+                                <!-- Inlined SVG for arrow-right -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1"><line x1="5" x2="19" y1="12" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2: Blog Platform -->
+                <!-- FIXED HOVER: Removed scale, added border hover -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:border-indigo-300 dark:hover:border-indigo-600 w-full">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Blog Platform API (Backend)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                            A complete backend API for a multi-user blog with posts, comments, and user management.
+                        </p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                            Built with Spring Boot and Spring Security for secure JWT-based authentication and Spring Data JPA for data persistence.
+                        </p>
+
+                        <!-- Tech Tags -->
+                        <div class="mb-4 flex flex-wrap gap-2">
+                            <span class="inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full px-3 py-1 text-xs font-semibold">Spring Boot</span>
+                            <span class="inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full px-3 py-1 text-xs font-semibold">Spring Security</span>
+                            <span class="inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full px-3 py-1 text-xs font-semibold">JWT</span>
+                            <span class="inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full px-3 py-1 text-xs font-semibold">MySQL</span>
+                        </div>
+
+                        <!-- Links -->
+                        <div>
+                            <a href="#" class="inline-flex items-center text-gray-500 dark:text-gray-400 font-medium group cursor-not-allowed" title="Coming Soon">
+                                <!-- Inlined SVG for github (small) -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1.5"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                (Coming Soon)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!--
+      =================================
+      CONTACT SECTION
+      =================================
+    -->
+    <section id="contact" class="py-20 lg:py-32 reveal-on-scroll">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-6">Get In Touch</h2>
+            <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-10">
+                I'm currently seeking new opportunities and am open to messages. Whether you have a question or just want to connect, my inbox is always open!
+            </p>
+            <a href="mailto:ramanagiri2023@gmail.com"
+               class="bg-indigo-600 text-white font-medium py-3 px-8 rounded-lg text-lg hover:bg-indigo-700 shadow-lg shadow-indigo-500/30 transform hover:scale-105 transition-all duration-300">
+                Email Me
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<!--
+  =================================
+  FOOTER
+  =================================
+-->
+<footer class="bg-slate-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+    <!-- FIXED PADDING: Changed to pb-24 on all screens -->
+    <div class="container mx-auto max-w-5xl px-6 pt-8 pb-24">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <!-- Credit -->
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 md:mb-0">
+                Designed & Built by Ramana Giri
+            </p>
+            <!-- Social Links -->
+            <div class="flex space-x-6">
+                <a href="https://github.com/Ramana-Giri/" target="_blank" rel="noopener noreferrer" class="text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400" title="GitHub">
+                    <span class="sr-only">GitHub</span>
+                    <!-- Inlined SVG for github (footer) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/ramana-giri-792650227/" target="_blank" rel="noopener noreferrer" class="text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400" title="LinkedIn">
+                    <span class="sr-only">LinkedIn</span>
+                    <!-- Inlined SVG for linkedin (footer) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </a>
+            </div>
+        </div>
     </div>
+</footer>
+
+<!--
+  =================================
+  BACK TO TOP BUTTON
+  =================================
+-->
+<a href="#home" id="back-to-top" class="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-indigo-600 text-white shadow-lg hover:bg-indigo-700 transition-all duration-300">
+    <!-- Inlined SVG for arrow-up -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><line x1="12" x2="12" y1="19" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    <span class="sr-only">Go to top</span>
+</a>
+
+<!--
+  =================================
+  JAVASCRIPT
+  =================================
+-->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- 1. Smooth Scroll for Anchor Links ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if(targetElement) {
+                    // Special handling for #home to go to top
+                    if (targetId === '#home' || targetId === '#') {
+                         window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // --- 2. Intersection Observer for Active Nav Link Highlighting ---
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        const navObserverOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.4
+        };
+
+        const navObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+
+                    // Update desktop links
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+
+                    // Update mobile links
+                    mobileNavLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, navObserverOptions);
+
+        sections.forEach(section => {
+            navObserver.observe(section);
+        });
+
+
+        // --- 3. Intersection Observer for "Reveal on Scroll" Animation ---
+        const revealElements = document.querySelectorAll('.reveal-on-scroll');
+
+        const revealObserverOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, revealObserverOptions);
+
+        revealElements.forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // --- 4. Back to Top Button Logic ---
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) { // Show after 400px of scroll
+                backToTopButton.classList.add('is-visible');
+            } else {
+                backToTopButton.classList.remove('is-visible');
+            }
+        });
+
+        // --- 5. THEME TOGGLE LOGIC (UPDATED) ---
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('theme-icon-sun');
+        const moonIcon = document.getElementById('theme-icon-moon');
+        // Removed System Icon variable
+
+        function applyTheme(theme) {
+            if (theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        function updateIcons(theme) {
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.add('hidden');
+
+            // Check the *resolved* theme, not just the setting
+            const isDark = (theme === 'dark') || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+            if (isDark) {
+                moonIcon.classList.remove('hidden');
+            } else {
+                sunIcon.classList.remove('hidden');
+            }
+        }
+
+        let currentTheme = localStorage.getItem('theme') || 'auto';
+        applyTheme(currentTheme); // Apply theme on load
+        updateIcons(currentTheme); // Set initial icon
+
+        themeToggle.addEventListener('click', () => {
+            // On click, toggle *only* between light and dark
+            const isCurrentlyDark = document.documentElement.classList.contains('dark');
+            currentTheme = isCurrentlyDark ? 'light' : 'dark';
+
+            localStorage.setItem('theme', currentTheme);
+            applyTheme(currentTheme);
+            updateIcons(currentTheme);
+        });
+
+        // Listen for changes in system theme
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            // *Only* update if user preference is set to 'auto'
+            if (localStorage.getItem('theme') === 'auto' || !localStorage.getItem('theme')) {
+                applyTheme('auto');
+                updateIcons('auto');
+            }
+        });
+
+        // --- 6. MOBILE MENU TOGGLE ---
+        const menuButton = document.getElementById('mobile-menu-button');
+        const menu = document.getElementById('mobile-menu');
+        const openIcon = document.getElementById('mobile-menu-icon-open');
+        const closeIcon = document.getElementById('mobile-menu-icon-close');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+        function toggleMenu() {
+            menu.classList.toggle('hidden');
+            openIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        }
+
+        menuButton.addEventListener('click', toggleMenu);
+
+        // Close menu when a link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (!menu.classList.contains('hidden')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+    });
+</script>
+
 </body>
 </html>
