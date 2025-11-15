@@ -36,10 +36,6 @@
         }
     </script>
 
-    <!--
-      --- THEME LOADER SCRIPT ---
-      This runs *before* the page loads to prevent a "flash" of the wrong theme.
-    -->
     <script>
         (function() {
             function applyTheme(theme) {
@@ -129,11 +125,16 @@
             opacity: 1;
             transform: scale(1) translateY(0);
         }
+
+        /* --- ADDED FOR MOBILE MENU SLIDE-DOWN --- */
+        main {
+            transition: transform 0.3s ease-in-out;
+        }
     </style>
 </head>
 
 <!-- UPDATED BODY BACKGROUND -->
-<body class="bg-pale-white text-gray-800 dark:bg-gray-900 dark:text-gray-200 antialiased">
+<body class="bg-pale-yellow text-gray-800 dark:bg-gray-900 dark:text-gray-200 antialiased">
 
 <!--
   =================================
@@ -141,7 +142,7 @@
   =================================
 -->
 <!-- UPDATED HEADER BACKGROUND -->
-<header class="sticky top-0 z-50 bg-pale-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700">
+<header class="sticky top-0 z-50 bg-pale-yellow/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700">
     <nav class="container mx-auto max-w-5xl px-6 py-4 flex justify-between items-center">
         <!-- Your Name/Logo (links to home) -->
         <a href="#home" class="text-xl font-bold text-gray-900 dark:text-white">
@@ -182,7 +183,7 @@
 
     <!-- MOBILE MENU PANEL -->
     <!-- UPDATED MOBILE MENU BACKGROUND -->
-    <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-pale-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg border-t border-gray-200 dark:border-gray-700">
+    <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-pale-yellow/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg border-t border-gray-200 dark:border-gray-700">
         <div class="flex flex-col space-y-4 p-6">
             <a href="#about" class="mobile-nav-link text-lg text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">About</a>
             <a href="#education" class="mobile-nav-link text-lg text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">Education</a>
@@ -609,64 +610,28 @@
         const themeToggle = document.getElementById('theme-toggle');
         const sunIcon = document.getElementById('theme-icon-sun');
         const moonIcon = document.getElementById('theme-icon-moon');
-        // Removed System Icon variable
 
-        function applyTheme(theme) {
-            if (theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-        }
-
-        function updateIcons(theme) {
-            sunIcon.classList.add('hidden');
-            moonIcon.classList.add('hidden');
-
-            // Check the *resolved* theme, not just the setting
-            const isDark = (theme === 'dark') || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-
-            if (isDark) {
-                moonIcon.classList.remove('hidden');
-            } else {
-                sunIcon.classList.remove('hidden');
-            }
-        }
-
-        let currentTheme = localStorage.getItem('theme') || 'auto';
-        applyTheme(currentTheme); // Apply theme on load
-        updateIcons(currentTheme); // Set initial icon
-
-        themeToggle.addEventListener('click', () => {
-            // On click, toggle *only* between light and dark
-            const isCurrentlyDark = document.documentElement.classList.contains('dark');
-            currentTheme = isCurrentlyDark ? 'light' : 'dark';
-
-            localStorage.setItem('theme', currentTheme);
-            applyTheme(currentTheme);
-            updateIcons(currentTheme);
-        });
-
-        // Listen for changes in system theme
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-            // *Only* update if user preference is set to 'auto'
-            if (localStorage.getItem('theme') === 'auto' || !localStorage.getItem('theme')) {
-                applyTheme('auto');
-                updateIcons('auto');
-            }
-        });
-
-        // --- 6. MOBILE MENU TOGGLE ---
+        // --- 6. MOBILE MENU TOGGLE (UPDATED) ---
         const menuButton = document.getElementById('mobile-menu-button');
         const menu = document.getElementById('mobile-menu');
         const openIcon = document.getElementById('mobile-menu-icon-open');
         const closeIcon = document.getElementById('mobile-menu-icon-close');
         const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+        const mainContent = document.querySelector('main'); // Get the main content
 
         function toggleMenu() {
             menu.classList.toggle('hidden');
             openIcon.classList.toggle('hidden');
             closeIcon.classList.toggle('hidden');
+
+            if (menu.classList.contains('hidden')) {
+                // Menu is closed, slide content back up
+                mainContent.style.transform = 'translateY(0px)';
+            } else {
+                // Menu is open, slide content down by menu's height
+                const menuHeight = menu.offsetHeight;
+                mainContent.style.transform = `translateY(${menuHeight}px)`;
+            }
         }
 
         menuButton.addEventListener('click', toggleMenu);
