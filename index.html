@@ -27,9 +27,7 @@
                         indigo: {
                             600: '#4F46E5',
                             700: '#4338CA',
-                        },
-                        // ADDED YOUR PALE YELLOW COLOR
-                        'pale-yellow': '#ffffc5',
+                        }
                     }
                 },
             },
@@ -55,9 +53,9 @@
         ::-webkit-scrollbar {
             width: 8px;
         }
-        /* UPDATED SCROLLBAR TRACK */
+        /* REVERTED SCROLLBAR TRACK */
         ::-webkit-scrollbar-track {
-            background: #fefee0;
+            background: #f1f5f9; /* slate-100 */
         }
         ::-webkit-scrollbar-thumb {
             background: #4F46E5;
@@ -133,16 +131,16 @@
     </style>
 </head>
 
-<!-- UPDATED BODY BACKGROUND -->
-<body class="bg-pale-yellow text-gray-800 dark:bg-gray-900 dark:text-gray-200 antialiased">
+<!-- REVERTED BODY BACKGROUND -->
+<body class="bg-slate-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200 antialiased">
 
 <!--
   =================================
   HEADER & NAVIGATION
   =================================
 -->
-<!-- UPDATED HEADER BACKGROUND -->
-<header class="sticky top-0 z-50 bg-pale-yellow/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700">
+<!-- REVERTED HEADER BACKGROUND -->
+<header class="sticky top-0 z-50 bg-slate-50/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700">
     <nav class="container mx-auto max-w-5xl px-6 py-4 flex justify-between items-center">
         <!-- Your Name/Logo (links to home) -->
         <a href="#home" class="text-xl font-bold text-gray-900 dark:text-white">
@@ -181,16 +179,14 @@
         </div>
     </nav>
 
-    <!-- MOBILE MENU PANEL -->
-    <!-- UPDATED MOBILE MENU BACKGROUND -->
-    <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-pale-yellow/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg border-t border-gray-200 dark:border-gray-700">
+    <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-slate-50/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg border-t border-gray-200 dark:border-gray-700">
         <div class="flex flex-col space-y-4 p-6">
             <a href="#about" class="mobile-nav-link text-lg text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">About</a>
             <a href="#education" class="mobile-nav-link text-lg text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">Education</a>
             <a href="#experience" class="mobile-nav-link text-lg text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">Experience</a>
             <a href="#skills" class="mobile-nav-link text-lg text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">Skills</a>
             <a href="#projects" class="mobile-nav-link text-lg text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">Projects</a>
-            <a href="#contact" class="mobile-nav-link text-lg text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-4G00">Contact</a>
+            <a href="#contact" class="mobile-nav-link text-lg text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">Contact</a>
         </div>
     </div>
 </header>
@@ -240,7 +236,7 @@
         <!-- Image -->
         <div class="md:w-2/5 mt-12 md:mt-0 flex justify-center">
             <!-- Correct LinkedIn profile image -->
-            <img src="static/Ramanagiri_image.jpg" alt="Ramana Giri" class="rounded-full w-64 h-64 md:w-80 md:h-80 object-cover shadow-xl">
+            <img src="static/Ramanagiri_image.jpg" alt="Ramana Giri" class="rounded-full w-64 h-64 md:w-80 md:h-80 object-cover shadow-xl" onerror="this.onerror=null; this.src='https://placehold.co/320x320/E9D5FF/4F46E5?text=RG';">
         </div>
     </section>
 
@@ -610,6 +606,53 @@
         const themeToggle = document.getElementById('theme-toggle');
         const sunIcon = document.getElementById('theme-icon-sun');
         const moonIcon = document.getElementById('theme-icon-moon');
+
+        // --- ADDING THIS LOGIC BACK IN ---
+        function applyTheme(theme) {
+            if (theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        function updateIcons(theme) {
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.add('hidden');
+
+            // Check the *resolved* theme, not just the setting
+            const isDark = (theme === 'dark') || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+            if (isDark) {
+                moonIcon.classList.remove('hidden');
+            } else {
+                sunIcon.classList.remove('hidden');
+            }
+        }
+
+        let currentTheme = localStorage.getItem('theme') || 'auto';
+        applyTheme(currentTheme); // Apply theme on load
+        updateIcons(currentTheme); // Set initial icon
+
+        themeToggle.addEventListener('click', () => {
+            // On click, toggle *only* between light and dark
+            const isCurrentlyDark = document.documentElement.classList.contains('dark');
+            currentTheme = isCurrentlyDark ? 'light' : 'dark';
+
+            localStorage.setItem('theme', currentTheme);
+            applyTheme(currentTheme);
+            updateIcons(currentTheme);
+        });
+
+        // Listen for changes in system theme
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            // *Only* update if user preference is set to 'auto'
+            if (localStorage.getItem('theme') === 'auto' || !localStorage.getItem('theme')) {
+                applyTheme('auto');
+                updateIcons('auto');
+            }
+        });
+        // --- END OF ADDED LOGIC ---
 
         // --- 6. MOBILE MENU TOGGLE (UPDATED) ---
         const menuButton = document.getElementById('mobile-menu-button');
